@@ -1,10 +1,12 @@
 package cn.sunshinehubery.sparseArray;
 
+import java.io.*;
+
 /**
  * 二维数组<=>稀疏数组
  * */
 public class SparseArray {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //创建一个二维数组
         int array[][] = new int[11][11];
         array[1][4] = 1;
@@ -64,6 +66,52 @@ public class SparseArray {
         for(int i = 0;i < array2.length;i++){
             for(int j = 0;j < array2[i].length;j++){
                 System.out.printf("%d\t",array2[i][j]);
+            }
+            System.out.println();
+        }
+        //将稀疏数组存到磁盘中
+        //创建一个存放数组的文件
+        File data = new File("D:\\sparseArray.data");
+        //使用字符流将数据写入
+        Writer os = null;
+        os = new FileWriter(data);
+        //拷贝数据
+        for(int i =0;i < sparseArray.length;i++){
+            for(int j = 0;j < sparseArray[i].length;j++){
+                os.write(sparseArray[i][j] + "\t");
+            }
+            os.write("\r\n");
+        }
+        //释放资源
+        os.close();
+        //将磁盘中文件的数据存放到稀疏数组中
+        File data2 = new File("D:\\sparseArray.data");
+        //创建流
+        BufferedReader in = new BufferedReader(new FileReader(data2));
+        int row = 0;
+        String line;
+        while ((line = in.readLine()) != null){
+            row++;
+        }
+        int sparseArray2[][] = new int[row][3];
+        int rowtmp = 0;
+        //读取完整个文件，重启流
+        in.close();
+        in = new BufferedReader(new FileReader(data2));
+        while((line = in.readLine()) != null){
+            String temp[] = line.split("\t");
+            for(int j = 0;j < temp.length;j++){
+                sparseArray2[rowtmp][j] = Integer.parseInt(temp[j]);
+            }
+            rowtmp++;
+        }
+        //释放资源
+        in.close();
+        //验证是否正确
+        System.out.println("从文件中读取到的数据：");
+        for (int[] sparse:sparseArray2) {
+            for (int s:sparse) {
+                System.out.printf("%d\t",s);
             }
             System.out.println();
         }
