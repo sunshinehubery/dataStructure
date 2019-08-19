@@ -1,10 +1,12 @@
 package cn.sunshinehubery.sparseArray;
 
 import java.io.*;
-
 /**
- * 二维数组<=>稀疏数组
- * */
+ * @description: 二维数组<=>稀疏数组
+ * @author: sunshinehubery
+ * @date: 2019/8/18 23:29
+ * @Version: 1.0
+ **/
 public class SparseArray {
     public static void main(String[] args) throws IOException {
         //创建一个二维数组
