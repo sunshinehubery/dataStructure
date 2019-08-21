@@ -16,8 +16,24 @@ public class SingleLinkedListDemo {
         SingleLinkedList singleLinkedList = new SingleLinkedList();
         singleLinkedList.add(heroNode1);
         singleLinkedList.add(heroNode2);
-        singleLinkedList.add(heroNode3);
         singleLinkedList.add(heroNode4);
+        singleLinkedList.list();
+
+        System.out.println("排序后的链表遍历：");
+        //测试根绝no排序
+        singleLinkedList.addByOrder(heroNode3);
+        singleLinkedList.list();
+
+        //测试修改方法
+        System.out.println("修改后的操作：");
+        HeroNode nerHeroNode = new HeroNode(2,"小卢","玉麒麟。。。");
+        singleLinkedList.update(nerHeroNode);
+        singleLinkedList.list();
+
+        //测试删除方法
+        System.out.println("删除后遍历链表信息：");
+        singleLinkedList.delete(1);
+        singleLinkedList.delete(4);
         singleLinkedList.list();
     }
 }
@@ -40,6 +56,82 @@ class SingleLinkedList{
         }
         temp.next = heroNode;
     }
+
+    //添加节点，按照no值的大小来排列
+    public void addByOrder(HeroNode newHeroNode){
+        //由于头节点是不能改动，所以我们需要一个辅助节点
+        HeroNode temp = head;
+        boolean flag = false;  //表示添加的节点的no的信息和链表中是否有相同
+        while(true){
+            if(temp.next == null){
+                //表示已经到了链表的末端
+                break;
+            }
+            if(temp.next.no > newHeroNode.no){
+                //表示已经找到
+                break;
+            }else if(temp.next.no == newHeroNode.no){
+                flag = true;
+                break;
+            }
+            temp = temp.next;//用于遍历
+        }
+        if(flag){
+            System.out.printf("链表存在编号为%d的信息\n",newHeroNode.no);
+        }else {
+            newHeroNode.next = temp.next;  //表示将后一个的信息放在插入的后面
+            temp.next = newHeroNode; //表示前一个的后一个是插入的节点
+        }
+    }
+
+    //修改链表中某节点信息（no不做修改）
+    public void update(HeroNode newHeroNode){
+        if(head.next == null){
+            System.out.println("这是一个空链表");
+            return;
+        }
+        //由于头节点是不能改动，需要辅助节点
+        HeroNode temp = head;
+        boolean flag = false;  //表示链表中是否存在这么一个节点
+        while(true){
+            if(temp.next == null){
+                System.out.println("不存在这么一个节点的链表！");
+                break;
+            }
+            if(temp.next.no == newHeroNode.no){
+                //表示存在这么一个节点
+                temp.next.name = newHeroNode.name;
+                temp.next.nickName = newHeroNode.nickName;
+                break;
+            }
+            temp = temp.next;
+        }
+    }
+
+    //根据节点的no信息删除链表节点（先找到该节点的前一个节点，将前一个节点的next修改为需要删除节点的后一个节点信息）
+    //在Java中当该节点没有被应用就会通过回收机制回收，释放空间
+    public void delete(int no){
+        //创建一个辅助节点
+        HeroNode temp = head;
+        boolean flag = false; //用于判断是否找到该节点
+        while(true){
+            if(temp.next == null){
+                break;
+            }
+            if(temp.next.no == no){
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        if (flag){
+            //删除找到的节点
+            temp.next = temp.next.next;
+        }else {
+            System.out.printf("不存在编号为%d的一个节点\n",no);
+        }
+    }
+
     //遍历链表
     public void list(){
         //判断链表是否为空
