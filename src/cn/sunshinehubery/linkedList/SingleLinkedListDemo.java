@@ -24,6 +24,11 @@ public class SingleLinkedListDemo {
         singleLinkedList.addByOrder(heroNode3);
         singleLinkedList.list();
 
+        //测试链表反转
+        System.out.println("反转后链表：");
+        revserLinkList(singleLinkedList.getHead());
+        singleLinkedList.list();
+
         //测试修改方法
         System.out.println("修改后的操作：");
         HeroNode nerHeroNode = new HeroNode(2,"小卢","玉麒麟。。。");
@@ -75,6 +80,30 @@ public class SingleLinkedListDemo {
             temp = temp.next;
         }
         return temp;
+    }
+
+    //反转链表
+    public static void revserLinkList(HeroNode head){
+        //首先判断链表是否为空或者只有一个节点
+        if(head.next == null || head.next.next == null){
+            return;
+        }
+        //定义一个辅助节点
+        HeroNode temp = head.next;
+        //定义一个当前节点的下一个节点，防止找不到后续链表节点信息
+        HeroNode nextNode = null;
+        //重新定义一个新的链表并初始化头节点
+        HeroNode head2 = new HeroNode(0,"","");
+        //遍历原来的链表
+        while(temp != null){
+            //先保存当前节点的下一个节点
+            nextNode = temp.next;
+            temp.next = head2.next; //将当前节点的下一个节点指向新链表的最前端
+            head2.next = temp; //将当前的节点连接上新链表
+            temp = nextNode;
+        }
+        //将老的头节点连接上
+        head.next = head2.next;
     }
 }
 
