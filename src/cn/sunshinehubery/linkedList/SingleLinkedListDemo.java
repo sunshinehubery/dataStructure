@@ -29,12 +29,52 @@ public class SingleLinkedListDemo {
         HeroNode nerHeroNode = new HeroNode(2,"小卢","玉麒麟。。。");
         singleLinkedList.update(nerHeroNode);
         singleLinkedList.list();
+        System.out.println("链表的节点的有效个数：" + getLength(singleLinkedList.getHead()));
 
         //测试删除方法
         System.out.println("删除后遍历链表信息：");
         singleLinkedList.delete(1);
         singleLinkedList.delete(4);
         singleLinkedList.list();
+
+        System.out.println("链表的节点的有效个数：" + getLength(singleLinkedList.getHead()));
+        System.out.println("倒数第一个节点的信息：" + findLastIndexHeroNode(singleLinkedList.getHead(),1));
+        System.out.println("倒数第一个节点的信息：" + findLastIndexHeroNode(singleLinkedList.getHead(),2));
+    }
+    //带头节点的单链表的有效节点的个数（去除头节点）
+    //需要传入一个头节点
+    public static int getLength(HeroNode head){
+        if(head.next == null){
+            return 0;
+        }
+        int length = 0;
+        //添加辅助节点，遍历
+        HeroNode temp = head.next;  //表示去除了头节点
+        while(temp != null){
+            temp = temp.next;
+            length++;
+        }
+        return length;
+    }
+
+    //查找单链表的倒数第k个节点的信息
+    //编写一个方法，接收head和k值
+    //首先遍历整个链表，获取整个链表的有效节点的个数getLength();
+    //定位找到那个节点getLength()-k
+    //使用for循环，找到那个节点
+    public static HeroNode findLastIndexHeroNode(HeroNode head,int index){
+        if(head.next == null){
+            return null;
+        }
+        int size = getLength(head);
+        if(index <= 0||index > size){
+            return null;
+        }
+        HeroNode temp = head.next;
+        for (int i = 0;i < size-index;i++){
+            temp = temp.next;
+        }
+        return temp;
     }
 }
 
@@ -42,6 +82,10 @@ public class SingleLinkedListDemo {
 class SingleLinkedList{
     //首先我们需要初始化一个头节点，头节点不储存数据，拥有next区域指向下一个节点
     HeroNode head = new HeroNode(0,"","");
+
+    public HeroNode getHead() {
+        return head;
+    }
 
     //向该链表添加节点数据
     public void add(HeroNode heroNode){
