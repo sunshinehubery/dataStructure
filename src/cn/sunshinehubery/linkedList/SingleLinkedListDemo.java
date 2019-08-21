@@ -1,5 +1,7 @@
 package cn.sunshinehubery.linkedList;
 
+import java.util.Stack;
+
 /**
  * @description: 带头节点的单向链表
  * @author: sunshinehubery
@@ -25,9 +27,13 @@ public class SingleLinkedListDemo {
         singleLinkedList.list();
 
         //测试链表反转
-        System.out.println("反转后链表：");
+        System.out.println("反转后链表(破坏原有的链表结构)：");
         revserLinkList(singleLinkedList.getHead());
         singleLinkedList.list();
+
+        //使用栈
+        System.out.println("打印逆序的链表数据（不会破坏链表结构）：");
+        revserPrint(singleLinkedList.getHead());
 
         //测试修改方法
         System.out.println("修改后的操作：");
@@ -104,6 +110,27 @@ public class SingleLinkedListDemo {
         }
         //将老的头节点连接上
         head.next = head2.next;
+    }
+
+    //使用栈来把单链表逆序打印出来
+    public static void revserPrint(HeroNode head){
+        //判断是否为空链表
+        if(head.next == null){
+            return;
+        }
+        //创建一个栈
+        Stack<HeroNode> stack = new Stack<>();
+        //创建一个辅助节点
+        HeroNode temp = head.next;
+        //遍历
+        while(temp != null){
+            stack.push(temp);
+            temp = temp.next;
+        }
+        //遍历栈
+        while(stack.size() > 0){
+            System.out.println(stack.pop());
+        }
     }
 }
 
