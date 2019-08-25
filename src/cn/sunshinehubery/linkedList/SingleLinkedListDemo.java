@@ -11,18 +11,32 @@ import java.util.Stack;
 public class SingleLinkedListDemo {
     public static void main(String[] args) {
         HeroNode heroNode1 = new HeroNode(1,"宋江","及时雨");
-        HeroNode heroNode2 = new HeroNode(2,"卢俊义","玉麒麟");
+        HeroNode heroNode2 = new HeroNode(5,"武松","行者");
         HeroNode heroNode3 = new HeroNode(3,"吴用","智多星");
-        HeroNode heroNode4 = new HeroNode(4,"林冲","豹子头");
+        HeroNode heroNode4 = new HeroNode(8,"鲁智深","花和尚");
 
+        System.out.println("singleLinkedList:");
         SingleLinkedList singleLinkedList = new SingleLinkedList();
-        singleLinkedList.add(heroNode1);
-        singleLinkedList.add(heroNode2);
-        singleLinkedList.add(heroNode4);
+        singleLinkedList.addByOrder(heroNode1);
+        singleLinkedList.addByOrder(heroNode2);
+        singleLinkedList.addByOrder(heroNode3);
+        singleLinkedList.addByOrder(heroNode4);
         singleLinkedList.list();
 
+        HeroNode heroNode5 = new HeroNode(2,"卢俊义","玉麒麟");
+        HeroNode heroNode6 = new HeroNode(4,"林冲","豹子头");
+        HeroNode heroNode7 = new HeroNode(6,"李逵","黑旋风");
+        HeroNode heroNode8 = new HeroNode(7,"阮小七","活阎王");
+        System.out.println("singleLinkedList2:");
+        SingleLinkedList singleLinkedList2 = new SingleLinkedList();
+        singleLinkedList2.addByOrder(heroNode5);
+        singleLinkedList2.addByOrder(heroNode6);
+        singleLinkedList2.addByOrder(heroNode7);
+        singleLinkedList2.addByOrder(heroNode8);
+        singleLinkedList2.list();
+
         System.out.println("排序后的链表遍历：");
-        //测试根绝no排序
+        //测试根据no排序
         singleLinkedList.addByOrder(heroNode3);
         singleLinkedList.list();
 
