@@ -120,7 +120,7 @@ public class SingleLinkedListDemo {
             nextNode = temp.next;
             temp.next = head2.next; //将当前节点的下一个节点指向新链表的最前端
             head2.next = temp; //将当前的节点连接上新链表
-            temp = nextNode;
+            temp = nextNode;  //后移原节点，前面保存在nextNode
         }
         //将老的头节点连接上
         head.next = head2.next;
