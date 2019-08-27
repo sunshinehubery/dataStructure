@@ -9,7 +9,7 @@ package cn.sunshinehubery.stack;
 public class Calculator {
     public static void main(String[] args) {
         //创建一个计算表达式（只适合个位数的计算）
-        String expression = "7+8-5*9-1+3";
+        String expression = "70+83";
         //创建两个栈，一个存放数值，一个存放符号
         ArrayStack2 numStack = new ArrayStack2(10);
         ArrayStack2 operStack = new ArrayStack2(10);
@@ -19,6 +19,7 @@ public class Calculator {
         int oper = 0;
         int result = 0;
         char ch = ' '; //将每次获得保存在ch
+        String keepNum = "";
         while(true){
             //依次获得expression中的每个字符
             ch = expression.substring(index,index+1).charAt(0);
@@ -45,7 +46,20 @@ public class Calculator {
                 }
             }else {
                 //数值就直接入栈,由于是ASCII所以转化为数字需要-48
-                numStack.push(ch - 48);
+                //numStack.push(ch - 48);
+                keepNum += ch;
+                //若是当前expression最后一个字符直接入栈
+                if(index == expression.length() - 1){
+                    numStack.push(Integer.parseInt(keepNum));
+                }else {
+                    //表达式为多位数时，所以我们需要继续往后判断字符是否为数值
+                    //若为数值继续往后判断，若为符号就将数值添加入数值栈
+                    if(operStack.isOper(expression.substring(index+1,index+2).charAt(0))){
+                        numStack.push(Integer.parseInt(keepNum));
+                        //我们需要将keepnum置为null
+                        keepNum = "";
+                    }
+                }
             }
             index++;
             //判断是否遍历完expression
