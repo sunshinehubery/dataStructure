@@ -9,7 +9,7 @@ package cn.sunshinehubery.stack;
 public class Calculator {
     public static void main(String[] args) {
         //创建一个计算表达式（只适合个位数的计算）
-        String expression = "70+83";
+        String expression = "702+83";
         //创建两个栈，一个存放数值，一个存放符号
         ArrayStack2 numStack = new ArrayStack2(10);
         ArrayStack2 operStack = new ArrayStack2(10);
